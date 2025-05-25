@@ -1,10 +1,12 @@
 package org.example.optimalweather.client;
 
 import org.example.optimalweather.model.WeatherForecastDTO;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDateTime;
 
+@Component
 public class SmhiClientImpl implements SmhiClient {
 
     private final WebClient webClient = WebClient.create();
