@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public class SmhiClientImpl implements SmhiClient {
 
-    private final WebClient webclient = WebClient.create();
+    private final WebClient webClient = WebClient.create();
 
     @Override
     public WeatherForecastDTO getForecast() {
