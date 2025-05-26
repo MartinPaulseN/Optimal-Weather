@@ -6,9 +6,34 @@
 </head>
 <body>
 <h1>Optimal väderprognos för Liljeholmen</h1>
-<p>Källa: <span th:text="${forecast != null} ? ${forecast.origin} : 'Ingen data'"></span></p>
-<p>Temperatur: <span th:text="${forecast != null} ? ${forecast.temperature} : '-'"></span></p>
-<p>Luftfuktighet: <span th:text="${forecast != null} ? ${forecast.humidity} : '-'"></span></p>
-<p>Prognosens tidpunkt: <span th:text="${forecast != null} ? ${forecast.timestamp} : '-'"></span></p>
+
+<p th:if="${forecast != null}">
+    Källa: <span th:text="${forecast.origin}"></span>
+</p>
+<p th:if="${forecast == null}">
+    Källa: Ingen data
+</p>
+
+<p th:if="${forecast != null}">
+    Temperatur: <span th:text="${forecast.temperature}"></span> °C
+</p>
+<p th:if="${forecast == null}">
+    Temperatur: -
+</p>
+
+<p th:if="${forecast != null}">
+    Relativ luftfuktighet: <span th:text="${forecast.humidity}"></span>%
+</p>
+<p th:if="${forecast == null}">
+    Relativ luftfuktighet: -
+</p>
+
+<p th:if="${forecast != null}">
+    Prognosens tidpunkt: <span th:text="${#temporals.format(forecast.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></span>
+</p>
+<p th:if="${forecast == null}">
+    Prognosens tidpunkt: -
+</p>
+
 </body>
 </html>
