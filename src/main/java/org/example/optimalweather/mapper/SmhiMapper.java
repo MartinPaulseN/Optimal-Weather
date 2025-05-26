@@ -3,14 +3,16 @@ package org.example.optimalweather.mapper;
 import jakarta.annotation.Nullable;
 import org.example.optimalweather.model.WeatherForecastDTO;
 import org.example.optimalweather.smhi.model.SmhiForecast;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
+@Component
 public class SmhiMapper {
 
     @Nullable
-    public static WeatherForecastDTO weatherForecastDTO(SmhiForecast forecast) {
+    public WeatherForecastDTO MapToDTO(SmhiForecast forecast) {
         if (forecast == null || forecast.getTimeSeries() == null || forecast.getTimeSeries().isEmpty()) {
             return null;
         }
