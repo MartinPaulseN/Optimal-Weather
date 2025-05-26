@@ -7,6 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -22,9 +23,7 @@ public class OpenWeatherClientImpl implements OpenWeatherClient {
     }
 
     @Override
-    public WeatherForecastDTO getForecast() {
-        double lat = 59.3110; //Liljeholmen
-        double lon = 18.0300;
+    public WeatherForecastDTO getForecast(double lat, double lon) {
 
         Map<String, Object> response = webClient.get()
                 .uri(uriBuilder -> uriBuilder
@@ -38,12 +37,30 @@ public class OpenWeatherClientImpl implements OpenWeatherClient {
                 .bodyToMono(Map.class)
                 .block();
 
+        if (response == null) {
+            return null;
+        }
+
+        List<Map<String, Object>> forecastList = (List<Map<String, Object>>) response.get("list");
+        if (forecastList == null || forecastList.size() <= 8) {
+            return null;
+        }
+
         Map<String, Object> forecast = ((java.util.List<Map<String, Object>>) response.get("list")).get(8);
         Map<String, Object> main = (Map<String, Object>) forecast.get("main");
 
+        if (main == null) {
+            return null;
+        }
+
         double temp = ((Number) main.get("temp")).doubleValue();
         int humidity = ((Number) main.get("humidity")).intValue();
-        String timeText = (String) forecast.get("dt_text");
+
+        String timeText = (String) forecast.get("dt_txt");
+        if (timeText == null) {
+            return null;
+        }
+
         LocalDateTime timestamp = LocalDateTime.parse(timeText, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         return new WeatherForecastDTO("OpenWeatherMap", temp, humidity, timestamp);

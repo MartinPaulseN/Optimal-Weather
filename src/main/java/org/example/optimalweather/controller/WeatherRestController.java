@@ -6,6 +6,7 @@ import org.example.optimalweather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,7 +21,9 @@ public class WeatherRestController {
     }
 
     @GetMapping("/forecast")
-    public WeatherForecastDTO getForecast() {
-        return weatherService.getOptimalForecast();
+    public WeatherForecastDTO getForecast(
+        @RequestParam double lat,
+        @RequestParam double lon) {
+        return weatherService.getOptimalForecast(lat, lon);
     }
 }

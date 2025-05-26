@@ -13,7 +13,7 @@ public class SmhiClientImpl implements SmhiClient {
     private final WebClient webClient = WebClient.create();
 
     @Override
-    public WeatherForecastDTO getForecast() {
+    public WeatherForecastDTO getForecast(double lat, double lon) {
         String url = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.0300/lat/59.3110/data.json";
 
         Map<String, Object> response = webClient.get()

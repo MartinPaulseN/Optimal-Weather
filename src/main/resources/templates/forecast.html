@@ -6,9 +6,9 @@
 </head>
 <body>
 <h1>Optimal väderprognos för Liljeholmen</h1>
-<p>Källa: <span th:text="${forecast.origin}"></span></p>
-<p>Temperatur: <span th:text="${forecast.temperature}"></span></p>
-<p>Luftfuktighet: <span th:text="${forecast.humidity}"></span></p>
-<p>Prognosens tidpunkt: <span th:text="${forecast.timestamp}"></span></p>
+<p>Källa: <span th:text="${forecast != null} ? ${forecast.origin} : 'Ingen data'"></span></p>
+<p>Temperatur: <span th:text="${forecast != null} ? ${forecast.temperature} : '-'"></span></p>
+<p>Luftfuktighet: <span th:text="${forecast != null} ? ${forecast.humidity} : '-'"></span></p>
+<p>Prognosens tidpunkt: <span th:text="${forecast != null} ? ${forecast.timestamp} : '-'"></span></p>
 </body>
 </html>
